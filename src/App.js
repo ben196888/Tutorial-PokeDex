@@ -21,20 +21,22 @@ class App extends Component {
     event.preventDefault();
     const id = this.state.text;
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-      .then((res) => {
+      .then(res => {
         if (!res.ok) {
-          throw res.status;
+          throw TypeError(res.status);
         }
         return res.json();
       })
       .then(({ name }) => {
         this.setState({
           name,
+          err: '',
         });
       })
-      .catch((err) => {
+      .catch(({ message }) => {
         this.setState({
-          err,
+          name: '',
+          err: message,
         });
       });
   }
