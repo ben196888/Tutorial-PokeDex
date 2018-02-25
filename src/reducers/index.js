@@ -3,14 +3,14 @@ import { combineReducers, createStore } from 'redux';
 const DEFAULT_STATE = {};
 
 const monReducer = (state = DEFAULT_STATE, action) => {
-    switch(action.type) {
-    default:
-        return state;
-    }
+  switch(action.type) {
+  default:
+    return state;
+  }
 };
 
 const rootReducer = combineReducers({
-    monster: monReducer,
+  monster: monReducer,
 });
 
 const store = createStore(rootReducer);
