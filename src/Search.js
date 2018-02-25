@@ -1,5 +1,17 @@
 import React, { Component } from 'react';
 
+const searchPokemonById = (id, successHandler, errorHandler) => {
+  fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+  .then(res => {
+    if (!res.ok) {
+      throw TypeError(res.status);
+    }
+    return res.json();
+  })
+  .then(successHandler)
+  .catch(errorHandler);
+};
+
 class Search extends Component {
   constructor() {
     super();
@@ -18,25 +30,9 @@ class Search extends Component {
   searchPokemon(event) {
     event.preventDefault();
     const id = this.state.text;
-    fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-    .then(res => {
-      if (!res.ok) {
-        throw TypeError(res.status);
-      }
-      return res.json();
-    })
-    .then(({ name }) => {
-      this.setState({
-        name,
-        err: '',
-      });
-    })
-    .catch(({ message }) => {
-      this.setState({
-        name: '',
-        err: message,
-      });
-    });
+    const successHandler = ({ name }) => this.setState({ name, err: '' });
+    const errorHandler = ({ message }) => this.setState({ name: '', err: message });
+    searchPokemonById(id, successHandler, errorHandler);
   }
   render() {
     return (
