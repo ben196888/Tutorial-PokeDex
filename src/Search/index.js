@@ -1,3 +1,3 @@
-import Search from './component';
+import Search from './container';
 
 export default Search;

@@ -3,7 +3,10 @@ import { combineReducers, createStore } from 'redux';
 const DEFAULT_STATE = {};
 
 const monReducer = (state = DEFAULT_STATE, action) => {
-  switch(action.type) {
+  const { type, payload } = action;
+  switch(type) {
+  case 'SET_POKEMON':
+    return payload;
   default:
     return state;
   }
